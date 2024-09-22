@@ -1,5 +1,5 @@
 const container = document.querySelector(".container");
-const newEtchASketch = document.querySelector("#newEtchASketch");
+const newGrid = document.querySelector("#newGrid");
 
 let squaresPerSide = 16;
 let gridItems = squaresPerSide ** 2;
@@ -12,8 +12,20 @@ function randomRGB() {
     return `rgb(${red}, ${green}, ${blue})`
 }
 
-function randomBGColor(element) {
-    element.setAttribute("style", `background-color: ${randomRGB()}; width: ${gridItemsWidth}%`)
+function setStyle(element) {
+    const getStyle = element.getAttribute("style");
+    const searchOpacity = getStyle.search("opacity");
+    let opacity = Number(getStyle.slice(searchOpacity + 9, -1));
+
+    element.style.backgroundColor = `${randomRGB()}`;
+    element.style.width = `${gridItemsWidth}`;
+
+    if (searchOpacity === -1) {
+        element.style.opacity = "0.1";
+    } else if (opacity < 1){
+        opacity = opacity * 100 + 10;
+        element.style.opacity = `${opacity}%`;
+    }
 }
 
 function grid() {
@@ -21,14 +33,14 @@ function grid() {
     for (let i = 0; i < gridItems; i++) {
         const div = document.createElement("div");
         div.style.width = `${gridItemsWidth}%`;
-        div.setAttribute("onmouseenter", "randomBGColor(this)");
+        div.setAttribute("onmouseenter", "setStyle(this)");
         container.appendChild(div);
     }
 }
 
 grid();
 
-newEtchASketch.addEventListener("click", () => {
+newGrid.addEventListener("click", () => {
     squaresPerSide = prompt("Type how many squares per side (max: 100, min: 1)");
 
     while (squaresPerSide > 100 || squaresPerSide < 1) {
