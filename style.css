@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+#newEtchASketch {
+    margin: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+div {
+    border: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    margin: auto;
+    display: flex;
+    height: 75vh;
+    width: 75vh;
+    border: 1px solid black;
+
+    flex-wrap: wrap;
+}
